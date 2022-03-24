@@ -11,8 +11,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var favoriteMovies: RecyclerView
     private lateinit var favoriteMoviesAdapter: MovieListAdapter
 
-    private lateinit var recentMovies : RecyclerView
-    private lateinit var recentMoviesAdapter: MovieListAdapter
+    private lateinit var upcomingMovies : RecyclerView
+    private lateinit var upcomingMoviesAdapter: MovieListAdapter
 
     private var movieListViewModel =  MovieListViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,14 +28,14 @@ class MainActivity : AppCompatActivity() {
         favoriteMovies.adapter = favoriteMoviesAdapter
         favoriteMoviesAdapter.updateMovies(movieListViewModel.getFavoriteMovies())
 
-        recentMovies = findViewById(R.id.recentMovies)
-        recentMovies.layoutManager = LinearLayoutManager(
+        upcomingMovies = findViewById(R.id.upcomingMovies)
+        upcomingMovies.layoutManager = LinearLayoutManager(
             this,
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        recentMoviesAdapter = MovieListAdapter(listOf())
-        recentMovies.adapter = recentMoviesAdapter
-        recentMoviesAdapter.updateMovies(movieListViewModel.getRecentMovies())
+        upcomingMoviesAdapter = MovieListAdapter(listOf())
+        upcomingMovies.adapter = upcomingMoviesAdapter
+        upcomingMoviesAdapter.updateMovies(movieListViewModel.getRecentMovies())
     }
 }

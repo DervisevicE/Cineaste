@@ -64,7 +64,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/recent"
+        android:text="@string/upcoming"
         android:textColor="@color/purple_700"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/favoriteMovies" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recentMovies"
+        android:id="@+id/upcomingMovies"
         android:layout_width="388dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
