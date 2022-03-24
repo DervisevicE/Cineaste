@@ -1,4 +1,4 @@
-package com.example.lv1
+package com.example.lv1.view
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lv1.data.Movie
+import com.example.lv1.R
 
 class MovieListAdapter(private var movies: List<Movie>) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
 

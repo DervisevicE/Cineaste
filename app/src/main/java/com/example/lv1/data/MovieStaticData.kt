@@ -1,4 +1,4 @@
-package com.example.lv1
+package com.example.lv1.data
 
 fun favoriteMovies(): List<Movie>{
     return listOf(
