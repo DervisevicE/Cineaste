@@ -1,6 +1,9 @@
 package com.example.lv1
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -37,6 +40,21 @@ class MovieDetailActivity : AppCompatActivity() {
         }
         else{
             finish()
+        }
+
+        website.setOnClickListener{
+            showWebsite()
+        }
+    }
+
+    private fun showWebsite() {
+        val webIntent : Intent = Uri.parse(movie.homepage).let { webpage ->
+            Intent(Intent.ACTION_VIEW,webpage)
+        }
+        try {
+            startActivity(webIntent)
+        } catch (e: ActivityNotFoundException){
+            // Definisati naredbe ako ne postoji aplikacija za navedenu akciju
         }
     }
 
