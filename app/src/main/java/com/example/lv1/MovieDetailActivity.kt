@@ -72,4 +72,5 @@ class MovieDetailActivity : AppCompatActivity() {
             .getIdentifier("picture1","drawable", context.packageName)
         poster.setImageResource(id)
     }
+
 }
