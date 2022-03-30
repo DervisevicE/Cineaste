@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lv1.data.Movie
 import com.example.lv1.R
 
-class MovieListAdapter(private var movies: List<Movie>) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+class MovieListAdapter(
+    private var movies: List<Movie>,
+    private val onItemClicked: (movie: Movie) -> Unit) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater
@@ -31,6 +33,7 @@ class MovieListAdapter(private var movies: List<Movie>) : RecyclerView.Adapter<M
         if (id===0) id=context.getResources()
             .getIdentifier("picture1", "drawable", context.getPackageName())
         holder.movieImage.setImageResource(id)
+        holder.itemView.setOnClickListener { onItemClicked(movies[position]) }
     }
 
     fun updateMovies(movies: List<Movie>) {

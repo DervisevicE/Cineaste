@@ -1,9 +1,11 @@
 package com.example.lv1
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lv1.data.Movie
 import com.example.lv1.view.MovieListAdapter
 import com.example.lv1.viewmodel.MovieListViewModel
 
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        favoriteMoviesAdapter = MovieListAdapter(listOf())
+        favoriteMoviesAdapter = MovieListAdapter(arrayListOf()){movie -> showMovieDetails(movie)}
         favoriteMovies.adapter = favoriteMoviesAdapter
         favoriteMoviesAdapter.updateMovies(movieListViewModel.getFavoriteMovies())
 
@@ -34,8 +36,14 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        upcomingMoviesAdapter = MovieListAdapter(listOf())
+        upcomingMoviesAdapter = MovieListAdapter(arrayListOf()) {movie -> showMovieDetails(movie)}
         upcomingMovies.adapter = upcomingMoviesAdapter
         upcomingMoviesAdapter.updateMovies(movieListViewModel.getRecentMovies())
+    }
+    private fun showMovieDetails(movie: Movie){
+        val intent = Intent(this, MovieDetailActivity::class.java).apply{
+            putExtra("movie_title", movie.title)
+        }
+        startActivity(intent)
     }
 }
