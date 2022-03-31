@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -49,7 +50,8 @@ class IntentInstrumentedTest {
 
     @Test
     fun testDetailActivityInstantiation(){
-        val pokreniDetalje: Intent = Intent(MovieDetailActivity::javaClass.name)
+        //val pokreniDetalje: Intent = Intent(MovieDetailActivity::javaClass.name)
+        val pokreniDetalje=Intent(ApplicationProvider.getApplicationContext(),MovieDetailActivity::class.java)
         pokreniDetalje.putExtra("movie_title","Black Widow")
         val scenario = launchActivity<MovieDetailActivity>(pokreniDetalje)
         onView(withId(R.id.movie_title)).check(matches(withText("Black Widow")))
@@ -62,7 +64,8 @@ class IntentInstrumentedTest {
     @Test
     fun testLinksIntent(){
         Intents.init()
-        val pokreniDetalje: Intent = Intent(MovieDetailActivity::javaClass.name)
+        //val pokreniDetalje: Intent = Intent(MovieDetailActivity::javaClass.name)
+        val pokreniDetalje=Intent(ApplicationProvider.getApplicationContext(),MovieDetailActivity::class.java)
         pokreniDetalje.putExtra("movie_title","Black Widow")
         val scenario = launchActivity<MovieDetailActivity>(pokreniDetalje)
         onView(withId(R.id.movie_website)).perform(click())

@@ -16,4 +16,12 @@ class RepositoryUnitTest {
         assertThat(movies, hasItem<Movie>(hasProperty("title", Is("Black Widow"))))
         assertThat(movies, not(hasItem<Movie>(hasProperty("title", Is("Pulp Fiction")))))
     }
+
+    @Test
+    fun testGetRecentMovies(){
+        val movies = MovieRepository.getRecentMovies()
+        assertEquals(movies.size,5)
+        assertThat(movies, hasItem<Movie>(hasProperty("title", Is("Love tactics"))))
+        assertThat(movies, not(hasItem<Movie>(hasProperty("title", Is("Black Widow")))))
+    }
 }
