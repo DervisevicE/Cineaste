@@ -6,10 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.lv1.data.Movie
 import com.example.lv1.viewmodel.MovieDetailViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -21,6 +23,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var genre: TextView
     private lateinit var website: TextView
     private lateinit var poster: ImageView
+    private lateinit var shareButton: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,7 @@ class MovieDetailActivity : AppCompatActivity() {
         genre = findViewById(R.id.movie_genre)
         website = findViewById(R.id.movie_website)
         poster = findViewById(R.id.movie_poster)
+        shareButton = findViewById(R.id.shareButton)
 
         val extras = intent.extras
         if (extras != null){
@@ -48,6 +52,23 @@ class MovieDetailActivity : AppCompatActivity() {
 
         title.setOnClickListener{
             showYoutube()
+        }
+
+        shareButton.setOnClickListener{
+            shareOverview()
+        }
+    }
+
+    private fun shareOverview() {
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, movie.overview)
+            type = "text/plain"
+        }
+        try {
+            startActivity(shareIntent)
+        } catch (e: ActivityNotFoundException){
+            // Definisati naredbe ako ne postoji aplikacija za navedenu akciju
         }
     }
 
