@@ -1,6 +1,8 @@
 package com.example.lv1
 
+import android.content.BroadcastReceiver
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lv1.data.Movie
 import com.example.lv1.view.MovieListAdapter
 import com.example.lv1.viewmodel.MovieListViewModel
+import com.example.lv1.viewmodel.MyBroadcastReceiver
 
 class MainActivity : AppCompatActivity() {
     private lateinit var favoriteMovies: RecyclerView
@@ -18,6 +21,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var upcomingMoviesAdapter: MovieListAdapter
 
     private lateinit var searchText: EditText
+
+    private val myBroadcastReceiver : BroadcastReceiver = MyBroadcastReceiver()
+
 
     private var movieListViewModel =  MovieListViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +52,16 @@ class MainActivity : AppCompatActivity() {
 
         if(intent?.action == Intent.ACTION_SEND && intent?.type == "text/plain")
             handleSendText(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(myBroadcastReceiver, IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"))
+    }
+
+    override fun onPause() {
+        unregisterReceiver(myBroadcastReceiver)
+        super.onPause()
     }
 
     private fun handleSendText(intent: Intent) {
