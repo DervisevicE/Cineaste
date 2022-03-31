@@ -12,6 +12,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.PositionAssertions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
@@ -71,5 +72,18 @@ class IntentInstrumentedTest {
         onView(withId(R.id.movie_website)).perform(click())
         intended(hasAction(Intent.ACTION_VIEW))
         Intents.release()
+    }
+
+    @Test
+    fun testPozicija(){
+        val pokreniDetalje=Intent(ApplicationProvider.getApplicationContext(),MovieDetailActivity::class.java)
+        pokreniDetalje.putExtra("movie_title","Black Widow")
+        val scenario = launchActivity<MovieDetailActivity>(pokreniDetalje)
+        onView(withId(R.id.movie_backdrop)).check(isAbove(withId(R.id.backdrop_guideline)))
+        onView(withId(R.id.movie_poster)).check(isLeftOf(withId(R.id.movie_title)))
+        onView(withId(R.id.movie_poster_card)).check(isAbove(withId(R.id.movie_overview)))
+        onView(withId(R.id.movie_overview)).check(isBelow(withId(R.id.movie_poster_card)))
+        onView(withId(R.id.movie_release_date)).check(isBelow(withId(R.id.movie_title)))
+        onView(withId(R.id.movie_release_date)).check(isLeftAlignedWith(withId(R.id.movie_title)))
     }
 }
