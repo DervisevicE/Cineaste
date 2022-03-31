@@ -1,6 +1,6 @@
 package com.example.lv1.data
 
-object MovieRepositroy {
+object MovieRepository {
     fun getFavoriteMovies() : List<Movie>{
         return favoriteMovies()
     }
