@@ -45,6 +45,32 @@ class MovieDetailActivity : AppCompatActivity() {
         website.setOnClickListener{
             showWebsite()
         }
+
+        title.setOnClickListener{
+            showYoutube()
+        }
+    }
+
+    private fun showYoutube() {
+        val ytIntent = Intent().apply {
+            action = Intent.ACTION_SEARCH
+            setPackage("com.google.android.youtube")
+            putExtra("query", movie.title+" trailer")
+        }
+        try {
+            startActivity(ytIntent)
+        } catch (e: ActivityNotFoundException){
+            // Definisati naredbe ako ne postoji aplikacija za navedenu akciju
+        }
+
+       /* val ytIntent = Intent(Intent.ACTION_SEARCH)
+        ytIntent.setPackage("com.google.adroid.youtube")
+        ytIntent.putExtra("query",title.toString() + " trailer")
+        try {
+            startActivity(ytIntent)
+        } catch (e: ActivityNotFoundException){
+            // Definisati naredbe ako ne postoji aplikacija za navedenu akciju
+        }*/
     }
 
     private fun showWebsite() {

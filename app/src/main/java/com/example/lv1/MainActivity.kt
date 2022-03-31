@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         favoriteMovies = findViewById(R.id.favoriteMovies)
+        searchText = findViewById(R.id.searchText)
         favoriteMovies.layoutManager = LinearLayoutManager(
             this,
             LinearLayoutManager.HORIZONTAL,
