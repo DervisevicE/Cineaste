@@ -17,6 +17,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasPackage
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -85,5 +86,26 @@ class IntentInstrumentedTest {
         onView(withId(R.id.movie_overview)).check(isBelow(withId(R.id.movie_poster_card)))
         onView(withId(R.id.movie_release_date)).check(isBelow(withId(R.id.movie_title)))
         onView(withId(R.id.movie_release_date)).check(isLeftAlignedWith(withId(R.id.movie_title)))
+    }
+
+    @Test
+    fun testYoutubeIntent(){
+        Intents.init()
+        val pokreniDetalje=Intent(ApplicationProvider.getApplicationContext(),MovieDetailActivity::class.java)
+        pokreniDetalje.putExtra("movie_title","Black Widow")
+        val scenario = launchActivity<MovieDetailActivity>(pokreniDetalje)
+        onView(withId(R.id.movie_title)).perform(click())
+        intended(hasAction(Intent.ACTION_SEARCH))
+        Intents.release()
+    }
+    @Test
+    fun testYoutubeIntentVol2(){
+        Intents.init()
+        val pokreniDetalje=Intent(ApplicationProvider.getApplicationContext(),MovieDetailActivity::class.java)
+        pokreniDetalje.putExtra("movie_title","Black Widow")
+        val scenario = launchActivity<MovieDetailActivity>(pokreniDetalje)
+        onView(withId(R.id.movie_title)).perform(click())
+        intended(hasPackage("com.google.android.youtube"))
+        Intents.release()
     }
 }
