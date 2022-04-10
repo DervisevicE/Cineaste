@@ -30,7 +30,7 @@ class MovieListAdapter(
         val context: Context = holder.movieImage.getContext()
         var id: Int = context.getResources()
             .getIdentifier(genreMatch, "drawable", context.getPackageName())
-        if (id===0) id=context.getResources()
+        if (id==0) id=context.getResources()
             .getIdentifier("picture1", "drawable", context.getPackageName())
         holder.movieImage.setImageResource(id)
         holder.itemView.setOnClickListener { onItemClicked(movies[position]) }

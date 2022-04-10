@@ -115,7 +115,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val context: Context = poster.context
         var id: Int = context.resources
             .getIdentifier(movie.genre,"drawable", context.packageName)
-        if(id===0) id=context.resources
+        if(id==0) id=context.resources
             .getIdentifier("picture1","drawable", context.packageName)
         poster.setImageResource(id)
     }

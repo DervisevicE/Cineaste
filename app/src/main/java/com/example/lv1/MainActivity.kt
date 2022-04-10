@@ -6,75 +6,81 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lv1.data.Movie
+import com.example.lv1.view.FavoriteMoviesFragment
 import com.example.lv1.view.MovieListAdapter
+import com.example.lv1.view.RecentMoviesFragment
+import com.example.lv1.view.SearchFragment
 import com.example.lv1.viewmodel.MovieListViewModel
 import com.example.lv1.viewmodel.MyBroadcastReceiver
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var favoriteMovies: RecyclerView
-    private lateinit var favoriteMoviesAdapter: MovieListAdapter
-
-    private lateinit var upcomingMovies : RecyclerView
-    private lateinit var upcomingMoviesAdapter: MovieListAdapter
-
-    private lateinit var searchText: EditText
-
-    private val myBroadcastReceiver : BroadcastReceiver = MyBroadcastReceiver()
-
-
-    private var movieListViewModel =  MovieListViewModel()
+    private lateinit var bottomNavigation: BottomNavigationView
+    private val br: BroadcastReceiver = MyBroadcastReceiver()
+    private val filter = IntentFilter("android.net.conn.CONNECTIVITY_CHANGE")
+    //Listener za click
+    private val mOnItemSelectedListener = NavigationBarView.OnItemSelectedListener{ item ->
+        when (item.itemId) {
+            R.id.navigation_favorites -> {
+                val favoritesFragment = FavoriteMoviesFragment.newInstance()
+                openFragment(favoritesFragment)
+                return@OnItemSelectedListener true
+            }
+            R.id.navigation_upcoming -> {
+                val recentFragments = RecentMoviesFragment.newInstance()
+                openFragment(recentFragments)
+                return@OnItemSelectedListener true
+            }
+            R.id.navigation_search -> {
+                val searchFragment = SearchFragment.newInstance(" ")
+                openFragment(searchFragment)
+                return@OnItemSelectedListener true
+            }
+        }
+        false
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        favoriteMovies = findViewById(R.id.favoriteMovies)
-        searchText = findViewById(R.id.searchText)
-        favoriteMovies.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        favoriteMoviesAdapter = MovieListAdapter(arrayListOf()){movie -> showMovieDetails(movie)}
-        favoriteMovies.adapter = favoriteMoviesAdapter
-        favoriteMoviesAdapter.updateMovies(movieListViewModel.getFavoriteMovies())
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        bottomNavigation = findViewById(R.id.navigationView)
+        bottomNavigation.setOnItemSelectedListener(mOnItemSelectedListener)
 
-        upcomingMovies = findViewById(R.id.upcomingMovies)
-        upcomingMovies.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        upcomingMoviesAdapter = MovieListAdapter(arrayListOf()) {movie -> showMovieDetails(movie)}
-        upcomingMovies.adapter = upcomingMoviesAdapter
-        upcomingMoviesAdapter.updateMovies(movieListViewModel.getRecentMovies())
-
+        //Defaultni fragment
+        bottomNavigation.selectedItemId= R.id.navigation_favorites
+        val favoritesFragment = FavoriteMoviesFragment.newInstance()
+        openFragment(favoritesFragment)
         if(intent?.action == Intent.ACTION_SEND && intent?.type == "text/plain")
             handleSendText(intent)
     }
 
-    override fun onResume() {
-        super.onResume()
-        registerReceiver(myBroadcastReceiver, IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"))
-    }
-
-    override fun onPause() {
-        unregisterReceiver(myBroadcastReceiver)
-        super.onPause()
-    }
-
     private fun handleSendText(intent: Intent) {
         intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-            searchText.setText(it)
+            bottomNavigation.selectedItemId= R.id.navigation_search
+            val searchFragment = SearchFragment.newInstance(it)
+            openFragment(searchFragment)
         }
     }
-    private fun showMovieDetails(movie: Movie){
-        val intent = Intent(this, MovieDetailActivity::class.java).apply{
-            putExtra("movie_title", movie.title)
-        }
-        startActivity(intent)
+
+    //Funkcija za izmjenu fragmenta
+    private fun openFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
-
-
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(br, filter)
+    }
+    override fun onPause() {
+        unregisterReceiver(br)
+        super.onPause()
+    }
 }
