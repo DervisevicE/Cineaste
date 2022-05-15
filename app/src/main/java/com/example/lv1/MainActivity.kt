@@ -10,12 +10,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lv1.data.Movie
-import com.example.lv1.view.FavoriteMoviesFragment
-import com.example.lv1.view.MovieListAdapter
-import com.example.lv1.view.RecentMoviesFragment
-import com.example.lv1.view.SearchFragment
-import com.example.lv1.viewmodel.MovieListViewModel
+import com.example.cinaeste.view.FavoriteMoviesFragment
+import com.example.cinaeste.view.RecentMoviesFragment
+import com.example.cinaeste.view.SearchFragment
 import com.example.lv1.viewmodel.MyBroadcastReceiver
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView

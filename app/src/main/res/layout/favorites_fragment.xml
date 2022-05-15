@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="398dp"
@@ -18,6 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favoriteMovies"
         android:layout_width="388dp"
@@ -33,6 +35,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView2" />
+
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -44,4 +48,9 @@
         app:layout_constraintBottom_toTopOf="@+id/favoriteMovies"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

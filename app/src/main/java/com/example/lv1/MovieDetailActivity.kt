@@ -9,8 +9,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.cinaeste.viewmodel.MovieDetailViewModel
 import com.example.lv1.data.Movie
-import com.example.lv1.viewmodel.MovieDetailViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MovieDetailActivity : AppCompatActivity() {

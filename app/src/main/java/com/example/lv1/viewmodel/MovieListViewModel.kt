@@ -1,14 +1,15 @@
-package com.example.lv1.viewmodel
+package com.example.cinaeste.viewmodel
 
 import com.example.lv1.data.Movie
 import com.example.lv1.data.MovieRepository
 
 class MovieListViewModel {
-    fun getFavoriteMovies() : List<Movie>{
-        return MovieRepository.getFavoriteMovies()
+
+    fun getFavoriteMovies():List<Movie>{
+        return MovieRepository.getFavoriteMovies();
     }
 
-    fun getRecentMovies() : List<Movie>{
-        return MovieRepository.getRecentMovies()
+    fun getRecentMovies():List<Movie>{
+        return MovieRepository.getRecentMovies();
     }
 }

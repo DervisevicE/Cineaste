@@ -1,5 +1,6 @@
-package com.example.lv1.view
+package com.example.cinaeste.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,9 @@ import androidx.fragment.app.Fragment
 import com.example.lv1.R
 
 class SearchFragment : Fragment() {
+
     private lateinit var searchText: EditText
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,6 +25,8 @@ class SearchFragment : Fragment() {
         }
         return view;
     }
+
+
     companion object {
         fun newInstance(search:String): SearchFragment = SearchFragment().apply {
             arguments = Bundle().apply {
