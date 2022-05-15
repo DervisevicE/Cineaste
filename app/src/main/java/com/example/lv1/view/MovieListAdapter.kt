@@ -26,7 +26,7 @@ class MovieListAdapter(
     override fun getItemCount(): Int = movies.size
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.movieTitle.text = movies[position].title;
-        val genreMatch: String = movies[position].genre
+        val genreMatch: String = movies[position].genre!!
         //Pronalazimo id drawable elementa na osnovu naziva žanra
         val context: Context = holder.movieImage.getContext()
         var id: Int = context.getResources()
