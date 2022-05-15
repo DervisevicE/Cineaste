@@ -1,4 +1,4 @@
-package com.example.cinaeste.view
+package com.example.lv1.view
 
 import android.os.Parcel
 import android.os.Parcelable

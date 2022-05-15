@@ -1,11 +1,12 @@
 package com.example.lv1.data
 
-data class Movie(
-    val id: Long,
-    val title: String,
-    val overview: String,
-    val relaseDate: String,
-    val homepage: String?,
-    val genre: String?,
-    val posterPath: String
+data class Movie (
+    var id: Long,
+    var title: String,
+    var overview: String,
+    var releaseDate: String,
+    var homepage: String?,
+    var genre: String?,
+    var posterPath: String,
+    var backdropPath: String
 )

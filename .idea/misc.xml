@@ -5,12 +5,14 @@
       <map>
         <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/activity_movie_detail.xml" value="0.25" />
+        <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/actors_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/element_list.xml" value="0.2210144927536232" />
         <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/favorites_fragment.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/item_movie.xml" value="0.2210144927536232" />
         <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/navigation.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/recents_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/search_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/layout/similar_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tarik/AndroidStudioProjects/LV1/app/src/main/res/menu/navigation.xml" value="0.4" />
       </map>
     </option>

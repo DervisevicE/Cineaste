@@ -1,4 +1,4 @@
-package com.example.cinaeste.view
+package com.example.lv1.view
 
 import android.app.ActivityOptions
 import android.content.Intent
@@ -10,16 +10,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinaeste.viewmodel.MovieListViewModel
 import com.example.lv1.MovieDetailActivity
 import com.example.lv1.R
 import com.example.lv1.data.Movie
+import com.example.lv1.viewmodel.MovieListViewModel
 
 class RecentMoviesFragment : Fragment() {
 
     private lateinit var recentMovies: RecyclerView
     private lateinit var recentMoviesAdapter: MovieListAdapter
-    private var movieListViewModel =  MovieListViewModel()
+    private var movieListViewModel =  MovieListViewModel(null,null)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +37,7 @@ class RecentMoviesFragment : Fragment() {
     companion object {
         fun newInstance(): RecentMoviesFragment = RecentMoviesFragment()
     }
-    private fun showMovieDetails(movie: Movie, view1: View, view2:View) {
+    private fun showMovieDetails(movie: Movie, view1: View,view2:View) {
         val intent = Intent(activity, MovieDetailActivity::class.java).apply {
             putExtra("movie_title", movie.title)
         }
