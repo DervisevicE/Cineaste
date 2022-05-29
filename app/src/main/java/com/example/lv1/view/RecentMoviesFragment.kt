@@ -7,6 +7,7 @@ import android.util.Pair as UtilPair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,10 @@ class RecentMoviesFragment : Fragment() {
         recentMoviesAdapter = MovieListAdapter(arrayListOf()) { movie,view1,view2 -> showMovieDetails(movie,view1,view2) }
         recentMovies.adapter=recentMoviesAdapter
         recentMoviesAdapter.updateMovies(movieListViewModel.getRecentMovies())
+        movieListViewModel.getUpcoming(
+            onSuccess = ::onSuccess,
+            onError = ::onError
+        )
         return view;
     }
     companion object {
@@ -45,5 +50,16 @@ class RecentMoviesFragment : Fragment() {
             .makeSceneTransitionAnimation(activity,  UtilPair.create(view1, "poster"),
                 UtilPair.create(view2, "title"))
         startActivity(intent, options.toBundle())
+    }
+
+    fun onSuccess(movies: List<Movie>){
+        val toast = Toast.makeText(context, "Upcoming movies found", Toast.LENGTH_SHORT)
+        toast.show()
+        recentMoviesAdapter.updateMovies(movies)
+    }
+
+    fun onError(){
+        val toast = Toast.makeText(context, "Search error", Toast.LENGTH_SHORT)
+        toast.show()
     }
 }

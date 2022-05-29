@@ -14,7 +14,7 @@ import com.example.lv1.services.LatestMovieService
 
 class MovieDetailResultActivity : AppCompatActivity(){
 
-    private var movie = Movie(0, "Test", "Test", "Test", "Test", "Test", "Test", "Test")
+    private var movie = Movie(0, "Test", "Test", "Test", "Test", "Test", "Test")
     private lateinit var title : TextView
     private lateinit var overview : TextView
     private lateinit var relaseDate : TextView
@@ -57,23 +57,23 @@ class MovieDetailResultActivity : AppCompatActivity(){
     private fun populateDetails() {
         title.text = movie.title
         relaseDate.text = movie.releaseDate
-        genre.text = movie.genre
+        //genre.text = movie.genre
         website.text = movie.homepage
         overview.text = movie.overview
 
         val context : Context = poster.context
-        var id=0
+        /*var id=0
         if(movie.genre!==null)
             id = context.resources.getIdentifier(movie.genre, "drawable", context.packageName)
 
         if(id===0)
             id = context.resources.getIdentifier("picture1", "drawable", context.packageName)
-
+*/
         Glide.with(context)
             .load(posterPath + movie.posterPath)
             .placeholder(R.drawable.picture1)
-            .error(id)
-            .fallback(id)
+            .error(R.drawable.picture1)
+            .fallback(R.drawable.picture1)
             .into(poster)
 
         var backdropContext : Context = backdrop.context

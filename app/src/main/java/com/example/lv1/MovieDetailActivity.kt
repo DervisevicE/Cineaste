@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -22,7 +23,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private var movieDetailViewModel =  MovieDetailViewModel(this@MovieDetailActivity::movieRetrieved,null,null)
     private lateinit var bottomNavigation: BottomNavigationView
-    private  var movie=Movie(0,"Test","Test","Test","Test","Test","Test","Test")
+    private  var movie=Movie(0,"Test","Test","Test","Test","Test","Test")
     private lateinit var title : TextView
     private lateinit var overview : TextView
     private lateinit var releaseDate : TextView
@@ -83,7 +84,8 @@ class MovieDetailActivity : AppCompatActivity() {
                 populateDetails()
             }
             else if (extras.containsKey("movie_id")){
-                movieDetailViewModel.getMovieDetails(extras.getLong("movie_id"))
+                movieDetailViewModel.getMovie(extras.getLong("movie_id"),onSuccess = ::onSuccess,
+                    onError = ::onError )
             }
         } else {
             finish()
@@ -98,21 +100,21 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun populateDetails() {
         title.text=movie.title
         releaseDate.text=movie.releaseDate
-        genre.text=movie.genre
+        //genre.text=movie.genre
         website.text=movie.homepage
         overview.text=movie.overview
         val context: Context = poster.getContext()
-        var id = 0;
+        /*var id = 0;
         if (movie.genre!==null)
             id = context.getResources()
                 .getIdentifier(movie.genre, "drawable", context.getPackageName())
         if (id===0) id=context.getResources()
-            .getIdentifier("picture1", "drawable", context.getPackageName())
+            .getIdentifier("picture1", "drawable", context.getPackageName())*/
         Glide.with(context)
             .load(posterPath + movie.posterPath)
             .placeholder(R.drawable.picture1)
-            .error(id)
-            .fallback(id)
+            .error(R.drawable.picture1)
+            .fallback(R.drawable.picture1)
             .into(poster);
         var backdropContext: Context = backdrop.getContext()
         Glide.with(backdropContext)
@@ -162,4 +164,15 @@ class MovieDetailActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+    fun onSuccess(movie:Movie){
+        this.movie =movie;
+        populateDetails()
+    }
+    fun onError() {
+        val toast = Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT)
+        toast.show()
+    }
+
+
 }

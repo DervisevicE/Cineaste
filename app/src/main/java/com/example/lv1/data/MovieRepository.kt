@@ -38,7 +38,7 @@ object MovieRepository {
         return similarMovies()
     }
 
-    suspend fun getMovieDetails(
+    /*suspend fun getMovieDetails(
         id: Long
     ):Result<Movie>{
         return withContext(Dispatchers.IO) {
@@ -68,7 +68,7 @@ object MovieRepository {
                 return@withContext Result.Error(Exception("Cannot parse JSON"))
             }
         }
-    }
+    }*/
 
 
 
@@ -105,38 +105,28 @@ object MovieRepository {
 
     suspend fun searchRequest(
         query: String
-    ): Result<List<Movie>>{
+    ) : GetMoviesResponse?{
         return withContext(Dispatchers.IO) {
-            try {
-                val movies = arrayListOf<Movie>()
-                val url1 =
-                    "https://api.themoviedb.org/3/search/movie?api_key=$tmdb_api_key&query=$query"
-                val url = URL(url1)
-                (url.openConnection() as? HttpURLConnection)?.run {
-                    val result = this.inputStream.bufferedReader().use { it.readText() }
-                    val jo = JSONObject(result)
-                    val results = jo.getJSONArray("results")
-                    for (i in 0 until results.length()) {
-                        val movie = results.getJSONObject(i)
-                        val title = movie.getString("title")
-                        val id = movie.getInt("id")
-                        val posterPath = movie.getString("poster_path")
-                        val overview = movie.getString("overview")
-                        val releaseDate = movie.getString("release_date")
-                        movies.add(Movie(id.toLong(), title, overview, releaseDate, null, null, posterPath, " "))
-                        if (i == 5) break
-                    }
-                }
-                return@withContext Result.Success(movies);
-            }
-            catch (e: MalformedURLException) {
-                return@withContext Result.Error(Exception("Cannot open HttpURLConnection"))
-            } catch (e: IOException) {
-                return@withContext Result.Error(Exception("Cannot read stream"))
-            } catch (e: JSONException) {
-                return@withContext Result.Error(Exception("Cannot parse JSON"))
-            }
+            var response = ApiAdapter.retrofit.searchMovie(query)
+            val responseBody = response.body()
+            return@withContext responseBody
+        }
+    }
 
+    suspend fun getUpcomingMovies() : GetMoviesResponse?{
+        return withContext(Dispatchers.IO){
+            var response = ApiAdapter.retrofit.getUpcomingMovies()
+            val responseBody = response.body()
+            return@withContext responseBody
+        }
+    }
+
+    suspend fun getMovie(id: Long
+    ) : Movie?{
+        return withContext(Dispatchers.IO) {
+            var response = ApiAdapter.retrofit.getMovie(id)
+            val responseBody = response.body()
+            return@withContext responseBody
         }
     }
 }

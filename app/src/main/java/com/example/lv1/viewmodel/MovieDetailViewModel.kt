@@ -22,7 +22,7 @@ class MovieDetailViewModel(private val movieRetrieved: ((movies: Movie) -> Unit)
         movies.addAll(MovieRepository.getRecentMovies())
         movies.addAll(MovieRepository.getFavoriteMovies())
         val movie= movies.find { movie -> name.equals(movie.title) }
-        return movie?:Movie(0,"Test","Test","Test","Test","Test","Test","Test")
+        return movie?:Movie(0,"Test","Test","Test","Test","Test","Test")
     }
 
     fun getActorsByTitle(name: String):List<String>{
@@ -33,7 +33,7 @@ class MovieDetailViewModel(private val movieRetrieved: ((movies: Movie) -> Unit)
         return MovieRepository.getSimilarMovies()?.get(name)?: emptyList()
     }
 
-    fun getMovieDetails(query: Long){
+    /*fun getMovieDetails(query: Long){
         scope.launch{
             val result = MovieRepository.getMovieDetails(query)
             when (result) {
@@ -41,7 +41,7 @@ class MovieDetailViewModel(private val movieRetrieved: ((movies: Movie) -> Unit)
                 else-> Log.v("meh","meh")
             }
         }
-    }
+    }*/
 
     fun getSimilarMoviesById(query: Long){
         scope.launch{
@@ -59,6 +59,16 @@ class MovieDetailViewModel(private val movieRetrieved: ((movies: Movie) -> Unit)
             when (result) {
                 is Result.Success<MutableList<String>> -> actorsRetrieved?.invoke(result.data)
                 else-> Log.v("meh","meh")
+            }
+        }
+    }
+
+    fun getMovie(query: Long, onSuccess: (movies: Movie) -> Unit, onError :() -> Unit){
+        scope.launch {
+            val result = MovieRepository.getMovie(query)
+            when (result) {
+                is Movie -> onSuccess?.invoke(result)
+                else-> onError?.invoke()
             }
         }
     }

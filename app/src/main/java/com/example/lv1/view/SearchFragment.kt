@@ -54,7 +54,8 @@ class SearchFragment : Fragment() {
     private fun onClick() {
         val toast = Toast.makeText(context, "Search start", Toast.LENGTH_SHORT)
         toast.show()
-        movieListViewModel.search(searchText.text.toString())
+        movieListViewModel.search(searchText.text.toString(),onSuccess = ::onSuccess,
+            onError = ::onError)
     }
     fun searchDone(movies:List<Movie>){
         val toast = Toast.makeText(context, "Search done", Toast.LENGTH_SHORT)
@@ -81,4 +82,11 @@ class SearchFragment : Fragment() {
             }
         }
     }
+
+    fun onSuccess(movies:List<Movie>){
+        val toast = Toast.makeText(context, "Upcoming movies found", Toast.LENGTH_SHORT)
+        toast.show()
+        searchMoviesAdapter.updateMovies(movies)
+    }
+
 }
